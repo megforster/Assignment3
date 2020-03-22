@@ -1,3 +1,20 @@
 <resources>
     <string name="app_name">Assignment3</string>
+    <string name="action_settings">Settings</string>
+    <string name="welcome_to_tsa_wait_time">Welcome to TSA Wait Time</string>
+    <string name="enter">Enter</string>
+    <string name="please_select_your_airport_below">Please Select your airport below.</string>
+    <string name="details_will_display_here">DETAILS will display here</string>
+    <string name="splash_screen_airplane_image">splash screen airplane image</string>
+    <string name="go">Go</string>
+    <string name="waitTimeDetails">Wait Time Details</string>
+    <string name="airportSelection">Airport Selection</string>
+    <string name="action_share">Share</string>
+    <string name="help">Help</string>
+    <string name="lightpurple">LightPurple</string>
+    <string name="lightorange">LightOrange</string>
+    <string name="lightblue">LightBlue</string>
+    <string name="aboutAPI">"TSA Wait Times is an API created by account TSA WaitTimes. It's goal is to retrieve the estimated security wait times of all US Airports. In its current form the API includes 7 airports and only indicates if said airport offers pre-check."</string>
+    <string name="airportList">0: Aberdeen Regional \n1: Abilene Regional \n2: Adak Naval Air Station \n3: Rafael Hernandez \n4: San Luis Valley/Bergman Field \n5: Southwest Georgia Regional \n6: Albany County \n7: Albuquerque International Sunport</string>
+
 </resources>
