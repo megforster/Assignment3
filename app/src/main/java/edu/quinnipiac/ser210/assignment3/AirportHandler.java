@@ -1,5 +1,7 @@
 package edu.quinnipiac.ser210.assignment3;
 
+import android.util.Log;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -13,6 +15,8 @@ public class AirportHandler {
         for (int i = 0; i <= 7; i++) { //Does this have something to do with the cut off airports?
             airports[i] = Integer.toString(i);
         }
+        Log.d("DEBUG: AirportHandler","Airport Array is population");
+        Log.d("DEBUG: AirportHandler", airports[3]);
 
 
     }
@@ -30,6 +34,7 @@ public class AirportHandler {
         String precheck = airDetailObj.getString("precheck");
 
         String details = "Code: "+code+"\nName: "+name+"\nCity: "+city+"\nState: "+state+"\nLatitude: "+latitude+"\nLongitude: "+longitude+"\nPre-check: "+precheck;
+        Log.d("DEBUG: AirportHandler", details);
         return details;
 
 

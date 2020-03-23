@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#039BE5"
-    tools:context=".SplashScreenActivity">
+    tools:context=".SplashScreenActivity"
+    android:id="@+id/splash">
 
     <include layout="@layout/content_splash_screen_activity" />
 

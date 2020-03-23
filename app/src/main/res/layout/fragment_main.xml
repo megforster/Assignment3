@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#039BE5"
-    tools:context=".MainFragment">
+    tools:context=".MainFragment"
+    android:id="@+id/mainFrag">
 
     <TextView
         android:id="@+id/select_text"

@@ -1,17 +1,28 @@
 package edu.quinnipiac.ser210.assignment3;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.ShareActionProvider;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.tabs.TabLayout;
+
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity {
 
     //Should just have code to handle switching between fragments
+
+    ShareActionProvider provider;
+    MainFragment mainFrag = new MainFragment();
+    HelpFragment helpFrag = new HelpFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +40,69 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(pager);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        MenuItem shareItem = menu.findItem(R.id.action_share);
+        provider = (ShareActionProvider) MenuItemCompat.getActionProvider(shareItem);
+        setShareActionIntent("Look how much longer I have to wait!");
+        provider = (ShareActionProvider) MenuItemCompat.getActionProvider(shareItem);
+        if (provider == null)
+
+            //DEBUG
+            Log.d("DEBUG: MainActivity", "noshare provider");
+
+        return true;
+    }
+    //Methods to setAction Intents
+    private void setShareActionIntent(String text) {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_TEXT, text);
+        provider.setShareIntent(intent);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.setting) {  //id == R.id.action_settings
+            Intent intent = new Intent(MainActivity.this, ChangeBackground.class);
+            startActivityForResult(intent, 0);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+
+
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==0){
+            String color = data.getStringExtra("MESSAGE");
+            if(color.equals("blue")){
+                //code for detail fragment which is referenced in main fragment
+                mainFrag.getView().setBackgroundResource(R.color.lightBlue);
+                helpFrag.getView().setBackgroundResource(R.color.lightBlue);
+            }else if(color.equals("orange")){
+                //code for detail fragment which is referenced in main fragment
+                mainFrag.getView().setBackgroundResource(R.color.lightOrange);
+                helpFrag.getView().setBackgroundResource(R.color.lightOrange);
+            }else if(color.equals("purple")){
+                //code for detail fragment which is referenced in main fragment
+                mainFrag.getView().setBackgroundResource(R.color.lightPurple);
+                helpFrag.getView().setBackgroundResource(R.color.lightPurple);
+            }
+
+        }
+    }
+
+
     private class SectionsPagerAdapter extends FragmentPagerAdapter {
 
         public SectionsPagerAdapter(FragmentManager fm) {
@@ -44,9 +118,9 @@ public class MainActivity extends AppCompatActivity {
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
-                    return new MainFragment();
+                    return mainFrag;
                 case 1:
-                    return new HelpFragment();
+                    return helpFrag;
             }
             return null;
 

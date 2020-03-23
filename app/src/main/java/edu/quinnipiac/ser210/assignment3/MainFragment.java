@@ -46,13 +46,14 @@ AirportHandler airportHandler = new AirportHandler();
                              Bundle savedInstanceState) {
         View thisFragment = inflater.inflate(R.layout.fragment_main, container, false);
         Spinner spinner = (Spinner) thisFragment.findViewById(R.id.spinner);
-        ArrayAdapter<String> arAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, airportHandler.airports);
+        ArrayAdapter<String> arAdapter = new ArrayAdapter<String>(thisFragment.getContext(), android.R.layout.simple_spinner_item, airportHandler.airports);
         arAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(arAdapter);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (userPick) {
+                    Log.d("DEBUG: onItemSelected", "HERE");
                     item = (String) parent.getItemAtPosition(position);
                     Intent selectedAirPort = new Intent(getActivity(), AirportHandler.class);
                     selectedAirPort.putExtra("selected", item);
