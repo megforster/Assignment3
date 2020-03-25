@@ -36,14 +36,14 @@ public class ChangeBackground extends AppCompatActivity {
 
     }
     public void setLightOrange(View view){
-        changeBackgroundActivity.setBackgroundResource(R.color.lightBlue);
+        changeBackgroundActivity.setBackgroundResource(R.color.lightOrange);
         intentback.putExtra("MESSAGE", "orange");
         setResult(2, intentback);
         finish();
     }
 
     public void setLightPurple(View view){
-        changeBackgroundActivity.setBackgroundResource(R.color.lightBlue);
+        changeBackgroundActivity.setBackgroundResource(R.color.lightPurple);
         intentback.putExtra("MESSAGE", "purple");
         setResult(2, intentback);
         finish();

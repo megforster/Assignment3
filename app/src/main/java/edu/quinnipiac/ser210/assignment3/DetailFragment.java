@@ -3,6 +3,8 @@ package edu.quinnipiac.ser210.assignment3;
 
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +21,7 @@ public class DetailFragment extends Fragment {
 
 
     public DetailFragment() {
-        // Required empty public constructor
+        Log.d("DEBUG DETAIL FRAGMENT", "Here is consturctor");
     }
 
 
@@ -28,6 +30,7 @@ public class DetailFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_detail, container, false);
         String details = getArguments().getString("details");
+        Log.d("DEBUG:DETAIL FRAGMENT", "details");
         TextView textView = (TextView) view.findViewById(R.id.details);
         textView.setText(details);
 

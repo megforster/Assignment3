@@ -36,6 +36,7 @@ AirportHandler airportHandler = new AirportHandler();
     String item = "";
     private String url01 = "https://tsa-wait-times.p.rapidapi.com/airports/test?APIKEY=test";
     private String url02 =   "test?APIKEY=test";
+    Fragment thisFrag = this;
 
     public MainFragment() {
     }
@@ -179,29 +180,31 @@ AirportHandler airportHandler = new AirportHandler();
         }
 
         @Override
-        //Method that handles execution of the data once selected to send to Details page
         protected void onPostExecute(String airportDetails) {
 
-
+            //Maybe get a reference to the Main Activity and call the bundle and fragment stuff there?
             if (airportDetails != null) {
                 //DEBUG
-                Log.d("DEBUG: MainActivity", airportDetails);
+                Log.d("DEBUG: MainFragment", airportDetails);
 
-                //This needs to be a fragment transaction
+                //This needs to be in main activity
                 DetailFragment display = new DetailFragment();
 
-
+                Log.d("DEBUG MAIN FRAG", "Detail fragment should have been created");
                 Bundle bundle = new Bundle();
                 bundle.putString("details", airportDetails);
                 display.setArguments(bundle);
+
+                //This lets me get to help after selecting an airport, but the detail fragment is onCreateView isn't called
                 getFragmentManager().beginTransaction()
-                        .replace(R.id.content, display)
+                        .attach(display)
+                        .detach(thisFrag)
                         .commit();
 
-
-               /* Intent intent = new Intent(getActivity(), DetailFragment.class);
-                intent.putExtra("AIRPORT_DETAILS", airportDetails);
-                startActivity(intent);*/
+               /* //This is what makes main fragment go to detail fragment, but also make main and help not work after
+                getFragmentManager().beginTransaction()
+                        .replace(R.id.content, display)
+                        .commit();*/
             }
 
         }
