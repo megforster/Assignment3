@@ -86,15 +86,15 @@ public class MainActivity extends AppCompatActivity {
         if(requestCode==0){
             String color = data.getStringExtra("MESSAGE");
             if(color.equals("blue")){
-                //code for detail fragment which is referenced in main fragment
+                //detailFrag.getView().setBackgroundResource(R.color.lightBlue);
                 mainFrag.getView().setBackgroundResource(R.color.lightBlue);
                 helpFrag.getView().setBackgroundResource(R.color.lightBlue);
             }else if(color.equals("orange")){
-                //code for detail fragment which is referenced in main fragment
+                //detailFrag.getView().setBackgroundResource(R.color.lightBlue);
                 mainFrag.getView().setBackgroundResource(R.color.lightOrange);
                 helpFrag.getView().setBackgroundResource(R.color.lightOrange);
             }else if(color.equals("purple")){
-                //code for detail fragment which is referenced in main fragment
+                //detailFrag.getView().setBackgroundResource(R.color.lightBlue);
                 mainFrag.getView().setBackgroundResource(R.color.lightPurple);
                 helpFrag.getView().setBackgroundResource(R.color.lightPurple);
             }

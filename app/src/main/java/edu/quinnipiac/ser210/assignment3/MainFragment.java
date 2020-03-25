@@ -1,6 +1,7 @@
 package edu.quinnipiac.ser210.assignment3;
 
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -37,7 +38,6 @@ AirportHandler airportHandler = new AirportHandler();
     private String url02 =   "test?APIKEY=test";
 
     public MainFragment() {
-        // Required empty public constructor
     }
 
 
@@ -52,6 +52,8 @@ AirportHandler airportHandler = new AirportHandler();
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                userPick=true;
+                Log.d("DEBUG: onItemSelected", "HERE B4 IF");
                 if (userPick) {
                     Log.d("DEBUG: onItemSelected", "HERE");
                     item = (String) parent.getItemAtPosition(position);
@@ -180,15 +182,26 @@ AirportHandler airportHandler = new AirportHandler();
         //Method that handles execution of the data once selected to send to Details page
         protected void onPostExecute(String airportDetails) {
 
+
             if (airportDetails != null) {
                 //DEBUG
                 Log.d("DEBUG: MainActivity", airportDetails);
 
-                //Intent to send data from this class to the details page
-                Intent intent = new Intent(getActivity(), DetailFragment.class);
-                //Puts the data
+                //This needs to be a fragment transaction
+                DetailFragment display = new DetailFragment();
+
+
+                Bundle bundle = new Bundle();
+                bundle.putString("details", airportDetails);
+                display.setArguments(bundle);
+                getFragmentManager().beginTransaction()
+                        .replace(R.id.content, display)
+                        .commit();
+
+
+               /* Intent intent = new Intent(getActivity(), DetailFragment.class);
                 intent.putExtra("AIRPORT_DETAILS", airportDetails);
-                startActivity(intent);
+                startActivity(intent);*/
             }
 
         }
