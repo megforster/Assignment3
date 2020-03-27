@@ -7,6 +7,7 @@ import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.tabs.TabLayout;
 
@@ -18,11 +19,9 @@ import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity {
 
-    //Should just have code to handle switching between fragments
-
     ShareActionProvider provider;
-    MainFragment mainFrag = new MainFragment();
-    HelpFragment helpFrag = new HelpFragment();
+    MainFragment mainFrag;
+    HelpFragment helpFrag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +37,10 @@ public class MainActivity extends AppCompatActivity {
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(pager);
+
+        mainFrag = new MainFragment(pagerAdapter);
+        helpFrag = new HelpFragment();
+
     }
 
     @Override
@@ -103,7 +106,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private class SectionsPagerAdapter extends FragmentPagerAdapter {
+    public class SectionsPagerAdapter extends FragmentStatePagerAdapter {
+
+        private boolean replace = false;
+        private DetailFragment detail;
 
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
@@ -114,11 +120,25 @@ public class MainActivity extends AppCompatActivity {
             return 2;
         }
 
+        public void setReplace(boolean b){
+            this.replace = b ;
+        }
+
+        public void setDetailFragment(DetailFragment display){
+            this.detail = display;
+        }
+
+        public int getItemPosition(Object object){return POSITION_NONE;}
+
         @Override
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
-                    return mainFrag;
+                    if(!replace) {
+                        return mainFrag;
+                    }else {
+                        return detail;
+                    }
                 case 1:
                     return helpFrag;
             }
@@ -137,6 +157,8 @@ public class MainActivity extends AppCompatActivity {
             }
             return null;
         }
+
+
     }
 
 }

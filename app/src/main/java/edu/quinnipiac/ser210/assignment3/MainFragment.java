@@ -8,6 +8,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.widget.ShareActionProvider;
 import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.PagerAdapter;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,14 +32,14 @@ public class MainFragment extends Fragment {
 
 //Code associated with airport assignment two airport selection
 AirportHandler airportHandler = new AirportHandler();
-    ShareActionProvider provider;
     boolean userPick = false;
     String item = "";
     private String url01 = "https://tsa-wait-times.p.rapidapi.com/airports/test?APIKEY=test";
     private String url02 =   "test?APIKEY=test";
-    Fragment thisFrag = this;
+    PagerAdapter pagerAdapter;
 
-    public MainFragment() {
+    public MainFragment(MainActivity.SectionsPagerAdapter pagerAdapter) {
+        this.pagerAdapter = pagerAdapter;
     }
 
 
@@ -79,15 +80,7 @@ AirportHandler airportHandler = new AirportHandler();
         return thisFragment;
 
     }
-/*
 
-   @Override
-    public void onUserInteraction() {
-        super.onUserInteraction();
-        userPick = true;
-
-    }
-*/
 
     //ASYNC SUBCLASS: Private class to do background work on the app fetching the data from the api to display
     private class FetchAirData extends AsyncTask<String, Void, String> {
@@ -140,7 +133,6 @@ AirportHandler airportHandler = new AirportHandler();
             StringBuffer stringBuffer = new StringBuffer();
             String string;
             int userChoice = Integer.parseInt(item);
-            //String buff = bufferedReader.readLine();
             int k = 0;
             int index = 0;
             int startPoint = 0;
@@ -195,16 +187,9 @@ AirportHandler airportHandler = new AirportHandler();
                 bundle.putString("details", airportDetails);
                 display.setArguments(bundle);
 
-                //This lets me get to help after selecting an airport, but the detail fragment is onCreateView isn't called
-                getFragmentManager().beginTransaction()
-                        .attach(display)
-                        .detach(thisFrag)
-                        .commit();
-
-               /* //This is what makes main fragment go to detail fragment, but also make main and help not work after
-                getFragmentManager().beginTransaction()
-                        .replace(R.id.content, display)
-                        .commit();*/
+               pagerAdapter.setReplace(true);
+               pagerAdapter.setDetailFragment(display);
+               pagerAdapter.notifyDataSetChanged();
             }
 
         }
