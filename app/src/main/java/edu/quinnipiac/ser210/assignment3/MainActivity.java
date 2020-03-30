@@ -6,7 +6,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.tabs.TabLayout;
@@ -22,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     ShareActionProvider provider;
     MainFragment mainFrag;
     HelpFragment helpFrag;
+    String color = "background";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,17 +45,14 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
+
         getMenuInflater().inflate(R.menu.menu_main, menu);
         MenuItem shareItem = menu.findItem(R.id.action_share);
         provider = (ShareActionProvider) MenuItemCompat.getActionProvider(shareItem);
         setShareActionIntent("Look how much longer I have to wait!");
         provider = (ShareActionProvider) MenuItemCompat.getActionProvider(shareItem);
-        if (provider == null)
-
-            //DEBUG
-            Log.d("DEBUG: MainActivity", "noshare provider");
-
+        /*if (provider == null)
+            Log.d("DEBUG: MainActivity", "noshare provider");*/
         return true;
     }
     //Methods to setAction Intents
@@ -68,28 +65,21 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.setting) {  //id == R.id.action_settings
+        if (id == R.id.setting) {
             Intent intent = new Intent(MainActivity.this, ChangeBackground.class);
             startActivityForResult(intent, 0);
             return true;
         }
-
         return super.onOptionsItemSelected(item);
-
-
     }
 
+    //Handles return intent from ChangeBackground and changes the main and help fragment backgrounds
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode==0){
-            String color = data.getStringExtra("MESSAGE");
+            color = data.getStringExtra("MESSAGE");
             if(color.equals("blue")){
-                //detailFrag.getView().setBackgroundResource(R.color.lightBlue);
                 mainFrag.getView().setBackgroundResource(R.color.lightBlue);
                 helpFrag.getView().setBackgroundResource(R.color.lightBlue);
             }else if(color.equals("orange")){
@@ -103,6 +93,10 @@ public class MainActivity extends AppCompatActivity {
             }
 
         }
+    }
+
+    public String getColor(){
+        return  color;
     }
 
 

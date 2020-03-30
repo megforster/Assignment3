@@ -13,7 +13,6 @@ public class SplashScreenActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash_screen);
     }
 
-    //Alter this to have it move to
     public void onEnter(View view) {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);

@@ -1,15 +1,9 @@
 package edu.quinnipiac.ser210.assignment3;
 
-
-import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-
-import androidx.appcompat.widget.ShareActionProvider;
 import androidx.fragment.app.Fragment;
-import androidx.viewpager.widget.PagerAdapter;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -55,9 +49,7 @@ AirportHandler airportHandler = new AirportHandler();
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 userPick=true;
-                Log.d("DEBUG: onItemSelected", "HERE B4 IF");
                 if (userPick) {
-                    Log.d("DEBUG: onItemSelected", "HERE");
                     item = (String) parent.getItemAtPosition(position);
                     Intent selectedAirPort = new Intent(getActivity(), AirportHandler.class);
                     selectedAirPort.putExtra("selected", item);
@@ -74,9 +66,6 @@ AirportHandler airportHandler = new AirportHandler();
 
             }
         });
-
-
-        // Inflate the layout for this fragment
         return thisFragment;
 
     }
@@ -103,21 +92,21 @@ AirportHandler airportHandler = new AirportHandler();
 
                 if (urlConnection.getInputStream() == null) {
 
-                    //DEBUG
-                    Log.e("DEBUG no connection", "no connection");
+                   /* //DEBUG
+                    Log.e("DEBUG no connection", "no connection");*/
                     return null;
                 }
                 //Buffers in the input in of the airportdata from the url
                 airportDetails = getStringFromBuffer(
                         new BufferedReader(new InputStreamReader(urlConnection.getInputStream())));
-
+/*
                 //DEBUG
-                Log.d("DEBUG: airportDetails", airportDetails);
+                Log.d("DEBUG: airportDetails", airportDetails);*/
 
                 //Catch error exceptions
             } catch (Exception e) {
                 //DEBUG
-                Log.e("MainActivity", "Error" + e.getMessage());
+               /* Log.e("MainActivity", "Error" + e.getMessage());*/
                 return null;
 
             } finally {
@@ -146,7 +135,6 @@ AirportHandler airportHandler = new AirportHandler();
                         k++;
                         if (k == 7) {
                             String temp = string.substring(startPoint, i + 1);
-                            System.out.println("+++++++++++++++++++++ " + temp);
                             arrayOfAirports[index] = temp;
                             index++;
                             k = 0;
@@ -162,11 +150,11 @@ AirportHandler airportHandler = new AirportHandler();
                     bufferedReader.close();
 
                 } catch (IOException e) {
-                    Log.e("DEBUG: MainActivity", "Error" + e.getMessage());
+                    /*Log.e("DEBUG: MainActivity", "Error" + e.getMessage());*/
                     return null;
                 }
             }
-            Log.d("DEBUG: airp", stringBuffer.toString());
+        /*    Log.d("DEBUG: airp", stringBuffer.toString());*/
             //Returns data from the airportHandler
             return AirportHandler.getAirportsDetails(arrayOfAirports[userChoice]);
         }
@@ -177,12 +165,12 @@ AirportHandler airportHandler = new AirportHandler();
             //Maybe get a reference to the Main Activity and call the bundle and fragment stuff there?
             if (airportDetails != null) {
                 //DEBUG
-                Log.d("DEBUG: MainFragment", airportDetails);
+                /*Log.d("DEBUG: MainFragment", airportDetails);*/
 
                 //This needs to be in main activity
                 DetailFragment display = new DetailFragment();
 
-                Log.d("DEBUG MAIN FRAG", "Detail fragment should have been created");
+                /*Log.d("DEBUG MAIN FRAG", "Detail fragment should have been created");*/
                 Bundle bundle = new Bundle();
                 bundle.putString("details", airportDetails);
                 display.setArguments(bundle);

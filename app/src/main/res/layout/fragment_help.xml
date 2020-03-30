@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".HelpFragment"
-    android:id="@+id/helpFrag">
+    android:id="@+id/helpFrag"
+    android:background="#039BE5">
 
     <ImageView
         android:id="@+id/imageView"
