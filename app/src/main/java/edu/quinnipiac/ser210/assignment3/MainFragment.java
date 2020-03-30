@@ -36,7 +36,7 @@ AirportHandler airportHandler = new AirportHandler();
     String item = "";
     private String url01 = "https://tsa-wait-times.p.rapidapi.com/airports/test?APIKEY=test";
     private String url02 =   "test?APIKEY=test";
-    PagerAdapter pagerAdapter;
+    MainActivity.SectionsPagerAdapter pagerAdapter;
 
     public MainFragment(MainActivity.SectionsPagerAdapter pagerAdapter) {
         this.pagerAdapter = pagerAdapter;
